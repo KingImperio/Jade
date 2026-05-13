@@ -256,46 +256,38 @@ const cleanPromptSymbol = (s: string | undefined, fallback: string) => {
 
 export const DARK_THEME: Theme = {
   color: {
-    primary: '#FFD700',
-    accent: '#FFBF00',
-    border: '#CD7F32',
-    text: '#FFF8DC',
-    muted: '#CC9B1F',
-    // Bumped from the old `#B8860B` darkgoldenrod (~53% luminance) which
-    // read as barely-visible on dark terminals for long body text.  The
-    // new value sits ~60% luminance — readable without losing the "muted /
-    // secondary" semantic.  Field labels still use `label` (65%) which
-    // stays brighter so hierarchy holds.
-    completionBg: '#1a1a2e',
-    completionCurrentBg: '#333355',
-    completionMetaBg: '#1a1a2e',
-    completionMetaCurrentBg: '#333355',
+    primary: '#00E676',
+    accent: '#7C4DFF',
+    border: '#00C853',
+    text: '#E0E0E0',
+    muted: '#9E9E9E',
+    completionBg: '#0F2414',
+    completionCurrentBg: '#1B3A22',
+    completionMetaBg: '#0F2414',
+    completionMetaCurrentBg: '#1B3A22',
 
-    label: '#DAA520',
-    ok: '#4caf50',
-    error: '#ef5350',
-    warn: '#ffa726',
+    label: '#00BCD4',
+    ok: '#69F0AE',
+    error: '#FF5252',
+    warn: '#FFD740',
 
-    prompt: '#FFF8DC',
-    // sessionLabel/sessionBorder intentionally track the `dim` value — they
-    // are "same role, same colour" by design.  fromSkin's banner_dim fallback
-    // relies on this pairing (#11300).
-    sessionLabel: '#CC9B1F',
-    sessionBorder: '#CC9B1F',
+    prompt: '#E0E0E0',
+    sessionLabel: '#00BCD4',
+    sessionBorder: '#00BCD4',
 
-    statusBg: '#1a1a2e',
+    statusBg: '#0D1F12',
     statusFg: '#C0C0C0',
-    statusGood: '#8FBC8F',
-    statusWarn: '#FFD700',
-    statusBad: '#FF8C00',
-    statusCritical: '#FF6B6B',
-    selectionBg: '#3a3a55',
+    statusGood: '#69F0AE',
+    statusWarn: '#FFD740',
+    statusBad: '#FF5252',
+    statusCritical: '#FF1744',
+    selectionBg: '#1B3A22',
 
-    diffAdded: 'rgb(220,255,220)',
-    diffRemoved: 'rgb(255,220,220)',
-    diffAddedWord: 'rgb(36,138,61)',
-    diffRemovedWord: 'rgb(207,34,46)',
-    shellDollar: '#4dabf7'
+    diffAdded: 'rgb(105,240,174)',
+    diffRemoved: 'rgb(255,82,82)',
+    diffAddedWord: 'rgb(0,200,83)',
+    diffRemovedWord: 'rgb(255,23,68)',
+    shellDollar: '#00BCD4'
   },
 
   brand: BRAND,
@@ -309,26 +301,26 @@ export const DARK_THEME: Theme = {
 // cleanly (#11300).
 export const LIGHT_THEME: Theme = {
   color: {
-    primary: '#8B6914',
-    accent: '#A0651C',
-    border: '#7A4F1F',
-    text: '#3D2F13',
-    muted: '#7A5A0F',
+    primary: '#2E7D32',
+    accent: '#5E35B1',
+    border: '#1B5E20',
+    text: '#1B1B1B',
+    muted: '#616161',
     completionBg: '#F5F5F5',
-    completionCurrentBg: mix('#F5F5F5', '#A0651C', 0.25),
+    completionCurrentBg: mix('#F5F5F5', '#5E35B1', 0.15),
     completionMetaBg: '#F5F5F5',
-    completionMetaCurrentBg: mix('#F5F5F5', '#A0651C', 0.25),
+    completionMetaCurrentBg: mix('#F5F5F5', '#5E35B1', 0.15),
 
-    label: '#7A5A0F',
+    label: '#00838F',
     ok: '#2E7D32',
     error: '#C62828',
     warn: '#E65100',
 
-    prompt: '#2B2014',
-    sessionLabel: '#7A5A0F',
-    sessionBorder: '#7A5A0F',
+    prompt: '#1B1B1B',
+    sessionLabel: '#00838F',
+    sessionBorder: '#00838F',
 
-    statusBg: '#F5F5F5',
+    statusBg: '#EEEEEE',
     statusFg: '#333333',
     statusGood: '#2E7D32',
     statusWarn: '#8B6914',

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jade Theme Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; background: #0A1A0F; color: #E0E0E0; padding: 30px; }
+
+  :root {
+    --green: #00E676;
+    --green-dim: #00C853;
+    --green-dark: #1B5E20;
+    --cyan: #00BCD4;
+    --purple: #7C4DFF;
+    --purple-dim: #651FFF;
+    --silver: #E0E0E0;
+    --silver-dim: #9E9E9E;
+    --silver-dimmer: #616161;
+    --bg: #0A1A0F;
+    --surface: #0F2414;
+    --surface2: #142E1A;
+    --error: #FF5252;
+    --warn: #FFD740;
+    --ok: #69F0AE;
+  }
+
+  h1 { color: var(--green); font-size: 24px; margin-bottom: 5px; }
+  .subtitle { color: var(--silver-dim); font-size: 13px; margin-bottom: 30px; }
+  h2 { color: var(--cyan); font-size: 16px; margin: 30px 0 15px; border-bottom: 1px solid var(--surface2); padding-bottom: 6px; }
+
+  /* ── Section: Logo / Banner ── */
+  .logo-section { margin-bottom: 30px; }
+  .logo-art { font-size: 18px; line-height: 1.4; font-weight: bold; }
+  .logo-art .l0 { color: var(--green); }
+  .logo-art .l1 { color: var(--green-dim); }
+  .logo-art .l2 { color: var(--purple); }
+  .logo-art .l3 { color: var(--purple-dim); }
+  .logo-art .l4 { color: var(--cyan); }
+  .logo-art .l5 { color: var(--silver-dim); }
+  .tagline { color: var(--silver-dim); margin-top: 10px; font-size: 13px; }
+  .tagline span { color: var(--purple); }
+
+  /* ── Section: Skin Colors Preview ── */
+  .swatch-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .swatch { display: flex; align-items: center; gap: 8px; background: var(--surface); padding: 6px 12px; border-radius: 4px; border: 1px solid var(--surface2); font-size: 12px; }
+  .swatch .dot { width: 16px; height: 16px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+  .swatch .label { color: var(--silver-dim); }
+  .swatch .hex { color: var(--silver); font-family: monospace; }
+
+  /* ── Section: Banner ── */
+  .banner-demo { background: var(--surface); border: 1px solid var(--green); border-radius: 6px; padding: 20px; margin-bottom: 20px; }
+  .banner-title { color: var(--green); font-size: 16px; font-weight: bold; }
+  .banner-info { color: var(--silver-dim); font-size: 12px; margin-top: 6px; }
+  .banner-info .accent { color: var(--purple); }
+  .banner-info .label { color: var(--cyan); }
+
+  /* ── Section: CLI Panels ── */
+  .panel { background: var(--surface); border: 1px solid var(--green-dim); border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
+  .panel-header { background: var(--surface2); padding: 8px 14px; border-bottom: 1px solid var(--green-dim); display: flex; justify-content: space-between; align-items: center; }
+  .panel-title { color: var(--green); font-weight: bold; font-size: 13px; }
+  .panel-badge { background: var(--purple); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+  .panel-body { padding: 12px 14px; font-size: 12px; line-height: 1.6; }
+  .panel-body .row { display: flex; gap: 20px; margin-bottom: 2px; }
+  .panel-body .key { color: var(--cyan); min-width: 120px; }
+  .panel-body .val { color: var(--silver); }
+  .panel-body .dim { color: var(--silver-dimmer); }
+
+  /* ── Section: Status Bar ── */
+  .status-bar { background: #0D1F12; border: 1px solid var(--green-dim); border-radius: 4px; padding: 6px 14px; display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 20px; }
+  .status-left { color: var(--silver-dim); }
+  .status-left span { color: var(--cyan); }
+  .status-right { display: flex; gap: 14px; }
+  .status-item { color: var(--silver-dim); }
+  .status-item.good { color: var(--green); }
+  .status-item.warn { color: var(--warn); }
+  .status-item.bad { color: var(--error); }
+  .status-item.critical { color: var(--error); font-weight: bold; }
+
+  /* ── Section: Spinner ── */
+  .spinner-demo { display: flex; gap: 20px; margin-bottom: 20px; }
+  .spinner-box { background: var(--surface); border: 1px solid var(--surface2); border-radius: 6px; padding: 12px; text-align: center; min-width: 100px; }
+  .spinner-box .face { font-size: 24px; }
+  .spinner-box .verb { color: var(--silver-dim); font-size: 11px; margin-top: 4px; }
+  .spinner-box .wings { color: var(--purple); font-size: 14px; }
+
+  /* ── Section: Session Panel ── */
+  .session-panel { background: var(--surface); border: 2px solid var(--purple); border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+  .session-panel .header { display: flex; justify-content: center; margin-bottom: 10px; }
+  .session-panel .header h3 { color: var(--green); font-size: 15px; }
+  .session-panel .body { display: flex; gap: 20px; }
+  .session-panel .hero { color: var(--silver-dimmer); font-size: 11px; line-height: 1.2; min-width: 120px; }
+  .session-panel .hero .h-purple { color: var(--purple); }
+  .session-panel .hero .h-cyan { color: var(--cyan); }
+  .session-panel .hero .h-green { color: var(--green-dim); }
+  .session-panel .model { color: var(--purple); font-size: 12px; margin-top: 6px; }
+  .session-panel .session-id { display: flex; gap: 6px; margin-top: 4px; }
+  .session-panel .session-id .label { color: var(--cyan); font-size: 11px; }
+  .session-panel .session-id .id { color: var(--silver-dim); font-size: 11px; }
+  .session-panel .info { flex: 1; }
+  .session-panel .info .collapsible { margin-bottom: 6px; }
+  .session-panel .collapsible .arrow { color: var(--purple); font-size: 12px; }
+  .session-panel .collapsible .title { color: var(--purple); font-weight: bold; font-size: 12px; }
+  .session-panel .collapsible .items { color: var(--silver-dim); font-size: 11px; margin-left: 14px; line-height: 1.5; }
+  .session-panel .collapse-toggle { cursor: pointer; }
+
+  /* ── Input / Prompt ── */
+  .input-demo { background: var(--surface); border: 1px solid var(--green-dim); border-radius: 6px; padding: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .input-demo .prompt-symbol { color: var(--green); font-size: 16px; font-weight: bold; }
+  .input-demo .prompt-text { color: var(--silver-dim); font-size: 13px; font-style: italic; }
+
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; }
+  th { color: var(--green); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--green-dim); }
+  td { color: var(--silver); padding: 6px 10px; border-bottom: 1px solid var(--surface2); }
+  td:first-child { color: var(--cyan); }
+  tr:hover td { background: var(--surface2); }
+
+  /* ── Tool Feed ── */
+  .tool-feed { margin-bottom: 20px; }
+  .tool-line { color: var(--silver-dim); font-size: 12px; padding: 3px 0; font-family: monospace; }
+  .tool-line .prefix { color: var(--purple); }
+  .tool-line .name { color: var(--cyan); }
+  .tool-line .status { color: var(--silver); }
+  .tool-line .done { color: var(--ok); }
+  .tool-line .error { color: var(--error); }
+
+  /* ── Help / Footer ── */
+  .help-footer { color: var(--silver-dimmer); font-size: 12px; padding: 20px 0; text-align: center; border-top: 1px solid var(--surface2); margin-top: 30px; }
+  .help-footer span { color: var(--cyan); }
+</style>
+</head>
+<body>
+
+<h1>◆ Jade Theme Preview</h1>
+<div class="subtitle">Green · Cyan · Silver · Purple — dark terminal reference</div>
+
+<!-- ==================== LOGO / BANNER ==================== -->
+<h2>◆ Logo Art (TUI Banner)</h2>
+<div class="logo-section logo-art">
+  <div class="l0">██╗ █████╗ ██████╗ ███████╗               ██╗ █████╗ ██████╗ ███████╗</div>
+  <div class="l1">██║ ██╔══██╗ ██╔══██╗ ██╔════╝            ██║ ██╔══██╗ ██╔══██╗ ██╔════╝</div>
+  <div class="l2">██║ ███████║ ██║  ██║ █████╗              ██║ ███████║ ██║  ██║ █████╗</div>
+  <div class="l3">██║ ██╔══██║ ██║  ██║ ██╔══╝       ██║    ██║ ██╔══██║ ██║  ██║ ██╔══╝</div>
+  <div class="l4">██║ ██║  ██║ ██████╔╝ ███████╗     ╚█████╔╝ ██║  ██║ ██████╔╝ ███████╗</div>
+  <div class="l5">╚═╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝      ╚════╝  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝</div>
+</div>
+<div class="tagline"><span>◆</span> Oracule Zero · Jade — Executive Intelligence for Oracule Zero</div>
+
+<!-- ==================== COLOR SWATCHES ==================== -->
+<h2>◆ Color Palette</h2>
+<div class="swatch-grid">
+  <div class="swatch"><div class="dot" style="background:#00E676"></div><span class="label">Green (primary)</span><span class="hex">#00E676</span></div>
+  <div class="swatch"><div class="dot" style="background:#00C853"></div><span class="label">Green-dim</span><span class="hex">#00C853</span></div>
+  <div class="swatch"><div class="dot" style="background:#00BCD4"></div><span class="label">Cyan (accent)</span><span class="hex">#00BCD4</span></div>
+  <div class="swatch"><div class="dot" style="background:#7C4DFF"></div><span class="label">Purple (accent)</span><span class="hex">#7C4DFF</span></div>
+  <div class="swatch"><div class="dot" style="background:#651FFF"></div><span class="label">Purple-dim</span><span class="hex">#651FFF</span></div>
+  <div class="swatch"><div class="dot" style="background:#E0E0E0"></div><span class="label">Silver (text)</span><span class="hex">#E0E0E0</span></div>
+  <div class="swatch"><div class="dot" style="background:#9E9E9E"></div><span class="label">Silver-dim</span><span class="hex">#9E9E9E</span></div>
+  <div class="swatch"><div class="dot" style="background:#616161"></div><span class="label">Silver-dimmer (muted)</span><span class="hex">#616161</span></div>
+  <div class="swatch"><div class="dot" style="background:#0F2414"></div><span class="label">Surface</span><span class="hex">#0F2414</span></div>
+</div>
+
+<!-- ==================== CLI BANNER ==================== -->
+<h2>◆ CLI Banner</h2>
+<div class="banner-demo">
+  <div class="banner-title">◆ Jade</div>
+  <div class="banner-info"><span class="label">Model:</span> gpt-4o · <span class="label">Context:</span> 128K · <span class="accent">Oracule Zero</span> · <span class="label">CWD:</span> ~/Projects/Jade</div>
+  <div class="banner-info" style="margin-top:4px"><span class="dim">Session: sess_abc123</span></div>
+</div>
+
+<!-- ==================== STATUS BAR ==================== -->
+<h2>◆ Status Bar (TUI footer)</h2>
+<div class="status-bar">
+  <div class="status-left"><span>◆</span> Jade · <span>gpt-4o</span></div>
+  <div class="status-right">
+    <div class="status-item good">● Connected</div>
+    <div class="status-item good">↑ 1.2k t/s</div>
+    <div class="status-item warn">⚠ 78% context</div>
+    <div class="status-item">⏱ 3.4s</div>
+  </div>
+</div>
+
+<!-- ==================== SESSION PANEL ==================== -->
+<h2>◆ Session Panel</h2>
+<div class="session-panel">
+  <div class="header"><h3>Jade v0.13.0 (2026-05-13)</h3></div>
+  <div class="body">
+    <div class="hero">
+      <div class="h-purple">⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀</div>
+      <div class="h-cyan">⠀⠀⠀⠀⠀⣠⣾⣿⣷⣦⡀⠀⠀⠀⠀⠀</div>
+      <div class="h-purple">⠀⠀⠀⠀⣾⡏⠀⠀⠀⢻⣿⠀⠀⠀⠀</div>
+      <div class="h-green">⠀⠀⠀⢸⣿⠀⠀◆⠀⠀⣿⡇⠀⠀⠀</div>
+      <div class="h-cyan">⠀⠀⠀⠘⢿⣷⣤⣄⣤⣾⡿⠃⠀⠀⠀</div>
+      <div class="h-purple">⠀⠀⠀⠀⠀⠉⠛⠿⠛⠉⠀⠀⠀⠀⠀</div>
+      <div class="h-green">⠀⠀⠀⠀⠀⠀◆⠀⠀⠀⠀⠀⠀</div>
+      <div style="color:var(--silver-dimmer);margin-top:4px">executive intelligence</div>
+    </div>
+    <div class="info">
+      <div class="collapsible"><span class="arrow">▸</span> <span class="title">Available Tools</span> <span class="dim" style="color:var(--silver-dimmer)">(12 tools)</span></div>
+      <div class="items">terminal: bash, python, file_rw<br>web: web_search, web_fetch<br>browser: browser_navigate, browser_screenshot<br>memory: memory_save, memory_search</div>
+
+      <div class="collapsible" style="margin-top:8px"><span class="arrow">▾</span> <span class="title">Available Skills</span> <span class="dim" style="color:var(--silver-dimmer)">in 3 categories</span></div>
+      <div class="items">software-development: plan, spike, systematic-debugging<br>devops: kanban-orchestrator, observability<br>research: bioinformatics, parallel-cli</div>
+
+      <div class="model" style="margin-top:8px">gpt-4o · Oracule Zero</div>
+      <div class="session-id"><span class="label">Session:</span> <span class="id">sess_abc123</span></div>
+      <div style="color:var(--silver-dim);font-size:11px;margin-top:8px">12 tools · 8 skills · /help for commands</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ACTIVE TOOL FEED ==================== -->
+<h2>◆ Tool Feed (thinking/spinner)</h2>
+<div class="tool-feed">
+  <div class="tool-line"><span class="prefix">◆</span> <span class="name">Jade</span> <span class="status">processing your request</span></div>
+  <div class="tool-line" style="padding-left:16px"><span class="wings">◈</span> <span class="name">web_search</span> <span class="status">searching for latest docs...</span></div>
+  <div class="tool-line" style="padding-left:16px"><span class="wings">◈</span> <span class="name">web_fetch</span> <span class="done">✓ done</span> <span class="dim" style="color:var(--silver-dimmer)">(1.2s, 4.2KB)</span></div>
+  <div class="tool-line" style="padding-left:16px"><span class="wings">◈</span> <span class="name">browser_navigate</span> <span class="status">launching browser...</span></div>
+</div>
+
+<div class="spinner-demo">
+  <div class="spinner-box"><div class="face" style="color:var(--green)">(◆)</div><div class="verb">thinking</div><div class="wings">⟪◆ ◆⟫</div></div>
+  <div class="spinner-box"><div class="face" style="color:var(--cyan)">(◈)</div><div class="verb">weaving plans</div><div class="wings">⟪◈ ◈⟫</div></div>
+  <div class="spinner-box"><div class="face" style="color:var(--purple)">(◇)</div><div class="verb">searching</div><div class="wings">⟪◇ ◇⟫</div></div>
+  <div class="spinner-box"><div class="face" style="color:var(--silver-dim)">(⌁)</div><div class="verb">compiling</div><div class="wings">⟪⌁ ⌁⟫</div></div>
+  <div class="spinner-box"><div class="face" style="color:var(--warn)">(◉)</div><div class="verb">waiting</div><div class="wings">⟪◉ ◉⟫</div></div>
+</div>
+
+<!-- ==================== INPUT PROMPT ==================== -->
+<h2>◆ Input Prompt</h2>
+<div class="input-demo">
+  <div class="prompt-symbol">❯</div>
+  <div class="prompt-text">Type your message or /help for commands.</div>
+  <div style="flex:1"></div>
+  <div style="color:var(--cyan);font-size:11px">normal</div>
+</div>
+
+<div class="input-demo" style="border-color:var(--purple)">
+  <div class="prompt-symbol" style="color:var(--purple)">❯</div>
+  <div class="prompt-text" style="color:var(--silver)">deploy the kanban orchestrator to staging</div>
+  <div style="flex:1"></div>
+  <div style="color:var(--purple);font-size:11px;font-weight:bold">multi-line</div>
+</div>
+
+<!-- ==================== CLI TABLE (Quick Ref) ==================== -->
+<h2>◆ CLI Quick Reference</h2>
+<table>
+  <tr><th>Action</th><th>CLI Command</th><th>Messaging</th></tr>
+  <tr><td>Start chatting</td><td><code style="color:var(--green)">jade</code></td><td><code style="color:var(--cyan)">hermes gateway start</code></td></tr>
+  <tr><td>Change model</td><td><code style="color:var(--green)">jade model</code></td><td><code style="color:var(--cyan)">/model</code></td></tr>
+  <tr><td>Configure tools</td><td><code style="color:var(--green)">jade tools</code></td><td><code style="color:var(--cyan)">n/a</code></td></tr>
+  <tr><td>Run setup wizard</td><td><code style="color:var(--green)">jade setup</code></td><td><code style="color:var(--cyan)">n/a</code></td></tr>
+  <tr><td>Start gateway</td><td><code style="color:var(--green)">jade gateway</code></td><td><code style="color:var(--cyan)">Start in advance</code></td></tr>
+</table>
+
+<!-- ==================== PANELS ==================== -->
+<h2>◆ UI Panels</h2>
+
+<div class="panel">
+  <div class="panel-header"><span class="panel-title">◆ Tools Configuration</span><span class="panel-badge">6 platforms</span></div>
+  <div class="panel-body">
+    <div class="row"><span class="key">terminal</span><span class="val">bash, python, file_rw, file_edit</span></div>
+    <div class="row"><span class="key">web</span><span class="val">web_search, web_fetch</span></div>
+    <div class="row"><span class="key">browser</span><span class="val">browser_navigate, browser_screenshot, browser_click</span></div>
+    <div class="row"><span class="key">memory</span><span class="val">memory_save, memory_search, memory_forget</span></div>
+    <div class="row"><span class="key">vision</span><span class="val">analyze_image</span></div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header"><span class="panel-title">◆ System Prompt</span><span class="panel-badge">1,847 chars</span></div>
+  <div class="panel-body">
+    <div class="dim" style="line-height:1.5">You are Jade, an intelligent AI assistant created by Oracule Zero. You are helpful, knowledgeable, and direct. You assist users with a wide range of tasks including answering questions, writing and editing code, analyzing information, creative work, and executing actions via your tools.</div>
+  </div>
+</div>
+
+<!-- ==================== RESPONSE BOX ==================== -->
+<h2>◆ Response Box</h2>
+<div style="background:var(--surface);border:1px solid var(--purple);border-radius:6px;padding:14px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--surface2)">
+    <span style="color:var(--green);font-weight:bold;font-size:13px">◆ Jade</span>
+    <span style="color:var(--silver-dim);font-size:11px">5.2s · 487 tokens</span>
+  </div>
+  <div style="color:var(--silver);font-size:13px;line-height:1.7">
+    Here's an analysis of your kanban orchestrator deployment. I've identified three issues that need attention before staging:
+  </div>
+  <ul style="color:var(--silver);font-size:13px;line-height:1.7;margin-top:8px;padding-left:20px">
+    <li><span style="color:var(--cyan)">Dependency conflict</span> — the webhook subscriber needs the 2.0 API</li>
+    <li><span style="color:var(--warn)">Missing .env keys</span> — GATEWAY_TOKEN is not set in your staging profile</li>
+    <li><span style="color:var(--green)">Ready to go</span> — container images are built and cached</li>
+  </ul>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="help-footer">
+  <span>◆</span> Jade v0.13.0 · <span>Powered by</span> Nous Research · type <span>/help</span> for commands
+</div>
+
+</body>
+</html>
