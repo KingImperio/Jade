@@ -7,12 +7,12 @@
 <p align="center">
   <a href="https://hermes-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-hermes--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentation"></a>
   <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://github.com/NousResearch/hermes-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
+   <a href="https://github.com/KingImperio/Jade/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
   <a href="https://nousresearch.com"><img src="https://img.shields.io/badge/Powered%20by-Nous%20Research-blueviolet?style=for-the-badge" alt="Powered by Nous Research"></a>
   <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/Lang-中文-red?style=for-the-badge" alt="中文"></a>
 </p>
 
-**Jade — Executive Intelligence for [Oracule Zero](https://nousresearch.com).** Fork of the Hermes Agent. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM. It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
+**Jade — Executive Intelligence for [Oracule Zero](https://nousresearch.com).** Jade is the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
 
 Use any model you want — [Nous Portal](https://portal.nousresearch.com), [OpenRouter](https://openrouter.ai) (200+ models), [NVIDIA NIM](https://build.nvidia.com) (Nemotron), [Xiaomi MiMo](https://platform.xiaomimimo.com), [z.ai/GLM](https://z.ai), [Kimi/Moonshot](https://platform.moonshot.ai), [MiniMax](https://www.minimax.io), [Hugging Face](https://huggingface.co), OpenAI, or your own endpoint. Switch with `hermes model` — no code changes, no lock-in.
 
@@ -33,7 +33,7 @@ Use any model you want — [Nous Portal](https://portal.nousresearch.com), [Open
 ### Linux, macOS, WSL2, Termux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KingImperio/Jade/main/scripts/install.sh | bash
 ```
 
 ### Windows (native, PowerShell) — Early Beta
@@ -43,10 +43,10 @@ curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scri
 Run this in PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/KingImperio/Jade/main/scripts/install.ps1 | iex
 ```
 
-The installer handles everything: uv, Python 3.11, Node.js, ripgrep, ffmpeg, **and a portable Git Bash** (MinGit, unpacked to `%LOCALAPPDATA%\hermes\git` — no admin required, completely isolated from any system Git install).  Hermes uses this bundled Git Bash to run shell commands.
+The installer handles everything: uv, Python 3.11, Node.js, ripgrep, ffmpeg, **and a portable Git Bash** (MinGit, unpacked to `%LOCALAPPDATA%\hermes\git` — no admin required, completely isolated from any system Git install).  Jade uses this bundled Git Bash to run shell commands.
 
 If you already have Git installed, the installer detects it and uses that instead.  Otherwise a ~45MB MinGit download is all you need — it won't touch or interfere with any system Git.
 
@@ -67,6 +67,7 @@ hermes              # start chatting!
 
 ```bash
 hermes              # Interactive CLI — start a conversation
+jade                # Same as hermes — Jade command alias
 hermes model        # Choose your LLM provider and model
 hermes tools        # Configure which tools are enabled
 hermes config set   # Set individual config values
@@ -81,11 +82,11 @@ hermes doctor       # Diagnose any issues
 
 ## CLI vs Messaging Quick Reference
 
-Jade has two entry points: start the terminal UI with `hermes`, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email. Once you're in a conversation, many slash commands are shared across both interfaces.
+Jade has two entry points: start the terminal UI with `hermes` or `jade`, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email. Once you're in a conversation, many slash commands are shared across both interfaces.
 
 | Action | CLI | Messaging platforms |
 |---------|-----|---------------------|
-| Start chatting | `hermes` | Run `hermes gateway setup` + `hermes gateway start`, then send the bot a message |
+| Start chatting | `hermes` or `jade` | Run `hermes gateway setup` + `hermes gateway start`, then send the bot a message |
 | Start fresh conversation | `/new` or `/reset` | `/new` or `/reset` |
 | Change model | `/model [provider:model]` | `/model [provider:model]` |
 | Set a personality | `/personality [name]` | `/personality [name]` |
@@ -117,7 +118,7 @@ Documentation for the upstream Hermes Agent lives at **[hermes-agent.nousresearc
 | [Cron Scheduling](https://hermes-agent.nousresearch.com/docs/user-guide/features/cron) | Scheduled tasks with platform delivery |
 | [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files) | Project context that shapes every conversation |
 | [Architecture](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture) | Project structure, agent loop, key classes |
-| [Contributing](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing) | Development setup, PR process, code style |
+| [Contributing](https://github.com/KingImperio/Jade/blob/main/CONTRIBUTING.md) | Development setup, PR process, code style |
 | [CLI Reference](https://hermes-agent.nousresearch.com/docs/reference/cli-commands) | All commands and flags |
 | [Environment Variables](https://hermes-agent.nousresearch.com/docs/reference/environment-variables) | Complete env var reference |
 
@@ -159,8 +160,8 @@ We welcome contributions! See the [Contributing Guide](https://hermes-agent.nous
 Quick start for contributors — clone and go with `setup-hermes.sh`:
 
 ```bash
-git clone https://github.com/NousResearch/hermes-agent.git
-cd hermes-agent
+git clone https://github.com/KingImperio/Jade.git
+cd Jade
 ./setup-hermes.sh     # installs uv, creates venv, installs .[all], symlinks ~/.local/bin/hermes
 ./hermes              # auto-detects the venv, no need to `source` first
 ```
@@ -183,7 +184,7 @@ scripts/run_tests.sh
 
 - 💬 [Discord](https://discord.gg/NousResearch)
 - 📚 [Skills Hub](https://agentskills.io)
-- 🐛 [Issues](https://github.com/NousResearch/hermes-agent/issues)
+- 🐛 [Issues](https://github.com/KingImperio/Jade/issues)
 - 🔌 [HermesClaw](https://github.com/AaronWong1999/hermesclaw) — Community WeChat bridge: Run Hermes Agent (upstream) and OpenClaw on the same WeChat account.
 
 ---
@@ -192,4 +193,4 @@ scripts/run_tests.sh
 
 MIT — see [LICENSE](LICENSE).
 
-Built on [Nous Research](https://nousresearch.com)'s Hermes Agent. Jade customized by Oracule Zero.
+Jade — Executive Intelligence for Oracule Zero. Powered by [Nous Research](https://nousresearch.com).
