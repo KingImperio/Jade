@@ -1288,6 +1288,16 @@ exec "$HERMES_BIN" "\$@"
 EOF
     chmod +x "$command_link_dir/hermes"
     log_success "Installed hermes launcher → $command_link_display_dir/hermes"
+    
+    # Create a user-facing shim for the jade command (alias to hermes).
+    cat > "$command_link_dir/jade" <<EOF
+#!/usr/bin/env bash
+unset PYTHONPATH
+unset PYTHONHOME
+exec "$HERMES_BIN" "\$@"
+EOF
+    chmod +x "$command_link_dir/jade"
+    log_success "Installed jade launcher → $command_link_display_dir/jade"
 
     if [ "$DISTRO" = "termux" ]; then
         export PATH="$command_link_dir:$PATH"

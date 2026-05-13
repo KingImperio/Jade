@@ -953,7 +953,7 @@ function Set-PathVariable {
         $hermesBin = "$InstallDir\venv\Scripts"
     }
     
-    # Add the venv Scripts dir to user PATH so hermes is globally available
+    # Add the venv Scripts dir to user PATH so hermes and jade are globally available
     # On Windows, the hermes.exe in venv\Scripts\ has the venv Python baked in
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
     
@@ -976,12 +976,14 @@ function Set-PathVariable {
         [Environment]::SetEnvironmentVariable("HERMES_HOME", $HermesHome, "User")
         Write-Success "Set HERMES_HOME=$HermesHome"
     }
+    
     $env:HERMES_HOME = $HermesHome
     
     # Update current session
     $env:Path = "$hermesBin;$env:Path"
     
     Write-Success "hermes command ready"
+    Write-Success "jade command ready (alias to hermes)"
 }
 
 function Copy-ConfigTemplates {
