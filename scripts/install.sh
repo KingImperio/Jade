@@ -146,7 +146,7 @@ print_banner() {
     echo "┌─────────────────────────────────────────────────────────┐"
     echo "│             ◆ Jade Installer                              │"
     echo "├─────────────────────────────────────────────────────────┤"
-    echo "│  An open source AI agent by Nous Research.              │"
+    echo "│  An open source executive agent by Oracule Zero.          │"
     echo "└─────────────────────────────────────────────────────────┘"
     echo -e "${NC}"
 }

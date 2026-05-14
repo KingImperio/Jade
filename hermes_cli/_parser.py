@@ -1,5 +1,5 @@
 """
-Top-level argparse construction for the hermes CLI.
+Top-level argparse construction for the Jade CLI.
 
 Lives in its own module so other modules (e.g. ``relaunch.py``) can
 introspect the parser to discover which flags exist without running the
@@ -39,43 +39,43 @@ def _inherited_flag(parser, *args, **kwargs):
 
 _EPILOGUE = """
 Examples:
-    hermes                        Start interactive chat
-    hermes chat -q "Hello"        Single query mode
-    hermes -c                     Resume the most recent session
-    hermes -c "my project"        Resume a session by name (latest in lineage)
-    hermes --resume <session_id>  Resume a specific session by ID
-    hermes setup                  Run setup wizard
-    hermes logout                 Clear stored authentication
-    hermes auth add <provider>    Add a pooled credential
-    hermes auth list              List pooled credentials
-    hermes auth remove <p> <t>    Remove pooled credential by index, id, or label
-    hermes auth reset <provider>  Clear exhaustion status for a provider
-    hermes model                  Select default model
-    hermes fallback [list]        Show fallback provider chain
-    hermes fallback add           Add a fallback provider (same picker as `hermes model`)
-    hermes fallback remove        Remove a fallback provider from the chain
-    hermes config                 View configuration
-    hermes config edit            Edit config in $EDITOR
-    hermes config set model gpt-4 Set a config value
-    hermes gateway                Run messaging gateway
-    hermes -s hermes-agent-dev,github-auth
-    hermes -w                     Start in isolated git worktree
-    hermes gateway install        Install gateway background service
-    hermes sessions list          List past sessions
-    hermes sessions browse        Interactive session picker
-    hermes sessions rename ID T   Rename/title a session
-    hermes logs                   View agent.log (last 50 lines)
-    hermes logs -f                Follow agent.log in real time
-    hermes logs errors            View errors.log
-    hermes logs --since 1h        Lines from the last hour
-    hermes debug share             Upload debug report for support
-    hermes update                 Update to latest version
-    hermes dashboard              Start web UI dashboard (port 9119)
-    hermes dashboard --stop       Stop running dashboard processes
-    hermes dashboard --status     List running dashboard processes
+    jade                          Start interactive chat
+    jade chat -q "Hello"          Single query mode
+    jade -c                       Resume the most recent session
+    jade -c "my project"          Resume a session by name (latest in lineage)
+    jade --resume <session_id>    Resume a specific session by ID
+    jade setup                    Run setup wizard
+    jade logout                   Clear stored authentication
+    jade auth add <provider>      Add a pooled credential
+    jade auth list                List pooled credentials
+    jade auth remove <p> <t>      Remove pooled credential by index, id, or label
+    jade auth reset <provider>    Clear exhaustion status for a provider
+    jade model                    Select default model
+    jade fallback [list]          Show fallback provider chain
+    jade fallback add             Add a fallback provider (same picker as `jade model`)
+    jade fallback remove          Remove a fallback provider from the chain
+    jade config                   View configuration
+    jade config edit              Edit config in $EDITOR
+    jade config set model gpt-4   Set a config value
+    jade gateway                  Run messaging gateway
+    jade -s hermes-agent-dev,github-auth
+    jade -w                       Start in isolated git worktree
+    jade gateway install          Install gateway background service
+    jade sessions list            List past sessions
+    jade sessions browse          Interactive session picker
+    jade sessions rename ID T     Rename/title a session
+    jade logs                     View agent.log (last 50 lines)
+    jade logs -f                  Follow agent.log in real time
+    jade logs errors              View errors.log
+    jade logs --since 1h          Lines from the last hour
+    jade debug share              Upload debug report for support
+    jade update                   Update to latest version
+    jade dashboard                Start web UI dashboard (port 9119)
+    jade dashboard --stop         Stop running dashboard processes
+    jade dashboard --status       List running dashboard processes
 
 For more help on a command:
-    hermes <command> --help
+    jade <command> --help
 """
 
 
@@ -87,8 +87,8 @@ def build_top_level_parser():
     other subparsers via ``subparsers.add_parser(...)``.
     """
     parser = argparse.ArgumentParser(
-        prog="hermes",
-        description="Hermes Agent - AI assistant with tool-calling capabilities",
+        prog="jade",
+        description="Jade - Oracule Intelligence",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=_EPILOGUE,
     )
