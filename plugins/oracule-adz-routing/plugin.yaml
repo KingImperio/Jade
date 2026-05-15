@@ -1,0 +1,7 @@
+name: oracule-adz-routing
+version: 1.0.0
+description: "Intelligent model routing for Oracule Zero agents. Reads routing.yaml, tracks rate limits, and provides optimal model selection based on current usage."
+author: "Oracule Zero Development Team"
+commands:
+  - routing-status
+  - routing-override
