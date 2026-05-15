@@ -1,0 +1,7 @@
+name: jade-identity
+version: 1.0.0
+description: "Loads Jade's identity and org config from ~/.oracule/agents/jade/config.yaml, registers Oracule skill files, and provides /org, /whoami, and /oracule-status slash commands."
+author: System
+kind: standalone
+hooks:
+  - on_session_start
