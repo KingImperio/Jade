@@ -1,0 +1,27 @@
+---
+api_budgets:
+  groq:
+    daily_requests: 1000
+    rpm_limit: 30
+    warn_at_percent: 80
+    hard_stop_at_percent: 100
+  mistral:
+    rpm_limit: 2
+    warn_at_percent: 80
+  google_gemini:
+    daily_requests: 1000
+    warn_at_percent: 70
+    note: "Gemini CLI — 1000 free req/day with 2.5 Pro"
+  cerebras:
+    daily_requests: 1700
+    warn_at_percent: 80
+  cloudflare_workers_ai:
+    daily_neurons: 10000
+    warn_at_percent: 80
+  nvidia_nim:
+    daily_requests: 1000
+    warn_at_percent: 80
+
+alert_channel: "discord:#alerts"
+billing_log: "~/.oracule/logs/api-usage.log"
+cost_ledger: "~/.oracule/logs/cost-ledger.jsonl"

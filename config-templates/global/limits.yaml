@@ -1,0 +1,11 @@
+---
+system:
+  max_concurrent_agents: 15
+  max_worker_instances_per_worker: 4
+  max_browser_sessions: 2
+  max_leizhi_workflows: 3
+  max_subagents_per_worker_team: 7
+  min_subagents_per_worker_team: 3
+
+enforcement: "aegis"
+alert_channel: "discord:#alerts"

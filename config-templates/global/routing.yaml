@@ -1,0 +1,77 @@
+---
+task_types:
+  deep_coding:
+    description: "Complex multi-file refactoring, plugin writing, architectural changes, codebase navigation"
+    primary:
+      - "poolside/laguna-m.1"
+      - "inclusion/ring-2.6-1t"
+      - "minimax/m2.5"
+    fallback:
+      - "nvidia/nemotron-3-super"
+      - "deepseek/v4-flash"
+
+  fast_coding:
+    description: "Targeted edits, config files, single-file changes, quick fixes, find-replace tasks"
+    primary:
+      - "deepseek/v4-flash"
+      - "xai/grok-code-fast-1"
+      - "stepfun/step-3.5-flash"
+    fallback:
+      - "nvidia/nemotron-3-super"
+      - "poolside/laguna-xs.2"
+
+  reasoning:
+    description: "Planning, architecture decisions, multi-step problem solving, cross-agent coordination"
+    primary:
+      - "inclusion/ring-2.6-1t"
+      - "minimax/m2.5"
+      - "poolside/laguna-m.1"
+    fallback:
+      - "stepfun/step-3.5-flash"
+      - "nvidia/nemotron-3-super"
+
+  research:
+    description: "Web research, document synthesis, long-context reading, summarization"
+    primary:
+      - "google/gemini-cli-2.5-pro"
+      - "minimax/m2.5"
+      - "inclusion/ring-2.6-1t"
+    fallback:
+      - "deepseek/v4-flash"
+      - "nvidia/nemotron-3-super"
+
+  fast_response:
+    description: "Quick lookups, status checks, short answers, routing decisions, health checks"
+    primary:
+      - "xai/grok-code-fast-1"
+      - "deepseek/v4-flash"
+      - "stepfun/step-3.5-flash"
+    fallback:
+      - "nvidia/nemotron-3-nano-omni"
+      - "poolside/laguna-xs.2"
+
+  vision:
+    description: "Image understanding, screenshot analysis, visual browser automation support"
+    primary:
+      - "google/gemini-cli-2.5-pro"
+      - "minimax/m2.5"
+    fallback:
+      - "inclusion/ring-2.6-1t"
+
+  orchestration:
+    description: "Agent coordination, delegation decisions, task routing — use cheap fast models"
+    primary:
+      - "xai/grok-code-fast-1"
+      - "stepfun/step-3.5-flash"
+      - "deepseek/v4-flash"
+    fallback:
+      - "nvidia/nemotron-3-nano-omni"
+
+  code_completion:
+    description: "In-line code completion, autocomplete, syntax completion — Mistral specialty"
+    primary:
+      - "mistral/codestral"
+      - "mistral/devstral"
+      - "deepseek/v4-flash"
+    fallback:
+      - "xai/grok-code-fast-1"

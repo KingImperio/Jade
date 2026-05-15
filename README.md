@@ -28,6 +28,18 @@ Use any model you want — [Nous Portal](https://portal.nousresearch.com), [Open
 
 ---
 
+## Setup
+
+```bash
+git clone https://github.com/KingImperio/Jade.git
+cd Jade
+./setup-oracule.sh
+```
+
+Run `./setup-oracule.sh` after cloning to initialize your `~/.oracule/` config directory. It copies templates into `~/.oracule/` and never overwrites existing files. Edit `~/.oracule/agents/jade/config.yaml` to customize.
+
+---
+
 ## Quick Install
 
 ### Linux, macOS, WSL2, Termux
