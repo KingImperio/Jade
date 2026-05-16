@@ -1,0 +1,9 @@
+name: experience-recall
+version: 1.0.0
+description: "Permanent incident documentation and experience recall for Jade. Tracks errors, wrong assumptions, novel solutions, and escalations."
+author: "Oracule Zero Development Team"
+hooks:
+  - post_tool_call
+commands:
+  - incident
+  - recall-experience
