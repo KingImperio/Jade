@@ -44,7 +44,7 @@ model = ctx.oracule_routing.get_model("deep_coding", "xovadev")
 
 ## Warning Threshold Alerting
 
-When a provider reaches its `warn_at_percent` threshold (default 80%), the router logs a warning to the Hermes logger and returns `"warning_threshold"` as the availability reason. The calling agent should detect this reason and write an alert to Agent-Converse:
+When a provider reaches its `warn_at_percent` threshold (default 80%), the router logs a warning to the Jade logger and returns `"warning_threshold"` as the availability reason. The calling agent should detect this reason and write an alert to Agent-Converse:
 
 ```python
 available, reason = rate_limiter.is_provider_available(provider)
@@ -73,7 +73,7 @@ These files should already exist from Session 3 setup.
 
 ## Notes
 
-- The plugin does not modify any core Hermes files.
+- The plugin does not modify any core Jade files.
 - All state is stored under `~/.oracule/` (or `$ORACULE_HOME`).
 - Overrides set via `/routing-override` are session-only and reset when the agent restarts.
 - Thread-safe: concurrent model selection calls are protected by a lock.

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
 title: "Automate Anything with Cron"
-description: "Real-world automation patterns using Hermes cron — monitoring, reports, pipelines, and multi-skill workflows"
+description: "Real-world automation patterns using Jade cron — monitoring, reports, pipelines, and multi-skill workflows"
 ---
 
 # Automate Anything with Cron
@@ -15,7 +15,7 @@ Cron jobs run in fresh agent sessions with no memory of your current chat. Promp
 :::
 
 :::tip Don't need the LLM? Use no-agent mode.
-For recurring watchdogs where the script already produces the exact message you want to send (memory alerts, disk alerts, CI pings, heartbeats), skip the LLM entirely with [script-only cron jobs](/docs/guides/cron-script-only). Zero tokens, same scheduler. You can ask Hermes to set one up for you in chat — the `cronjob` tool knows when to pick `no_agent=True` and writes the script for you.
+For recurring watchdogs where the script already produces the exact message you want to send (memory alerts, disk alerts, CI pings, heartbeats), skip the LLM entirely with [script-only cron jobs](/docs/guides/cron-script-only). Zero tokens, same scheduler. You can ask Jade to set one up for you in chat — the `cronjob` tool knows when to pick `no_agent=True` and writes the script for you.
 :::
 
 ---
@@ -39,7 +39,7 @@ URL = "https://example.com/pricing"
 STATE_FILE = os.path.expanduser("~/.hermes/scripts/.watch-site-state.json")
 
 # Fetch current content
-req = urllib.request.Request(URL, headers={"User-Agent": "Hermes-Monitor/1.0"})
+req = urllib.request.Request(URL, headers={"User-Agent": "Jade-Monitor/1.0"})
 content = urllib.request.urlopen(req, timeout=30).read().decode()
 current_hash = hashlib.sha256(content.encode()).hexdigest()
 

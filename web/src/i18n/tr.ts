@@ -120,8 +120,8 @@ export const tr: Translations = {
     starting: "Başlatılıyor",
     startedInBackground: "Arka planda başlatıldı — ilerleme için günlüklere bakın",
     stopped: "Durduruldu",
-    updateHermes: "Jade'i Güncelle",
-    updatingHermes: "Jade güncelleniyor…",
+    updateJade: "Jade'i Güncelle",
+    updatingJade: "Jade güncelleniyor…",
     waitingForOutput: "Çıktı bekleniyor…",
   },
 
@@ -266,7 +266,7 @@ export const tr: Translations = {
     enableRuntime: "Etkinleştir",
     forceReinstall: "Yeniden yüklemeyi zorla (önce mevcut klasörü sil)",
     headline:
-      "Hermes eklentilerini keşfedin, yükleyin, etkinleştirin ve güncelleyin (`hermes plugins` ile eşdeğer).",
+      "Jade eklentilerini keşfedin, yükleyin, etkinleştirin ve güncelleyin (`hermes plugins` ile eşdeğer).",
     identifierLabel: "Git URL veya owner/repo",
     inactive: "pasif",
     installBtn: "Git'ten yükle",
@@ -432,9 +432,9 @@ export const tr: Translations = {
       kicker: "Agentic Gamerscore",
       title: "Jade Achievements",
       subtitle:
-        "Gerçek oturum geçmişinden kazanılan, koleksiyonluk Hermes rozetleri. Bilinen ama henüz tamamlanmamış başarılar Keşfedildi olarak gösterilir; Gizli başarılar ilk eşleşen davranış görünene kadar saklı kalır.",
+        "Gerçek oturum geçmişinden kazanılan, koleksiyonluk Jade rozetleri. Bilinen ama henüz tamamlanmamış başarılar Keşfedildi olarak gösterilir; Gizli başarılar ilk eşleşen davranış görünene kadar saklı kalır.",
       scan_subtitle:
-        "Hermes oturum geçmişi taranıyor. Büyük geçmişlerde ilk tarama 5–10 saniye sürebilir.",
+        "Jade oturum geçmişi taranıyor. Büyük geçmişlerde ilk tarama 5–10 saniye sürebilir.",
     },
     actions: {
       rescan: "Yeniden tara",
@@ -480,10 +480,10 @@ export const tr: Translations = {
       tiers_header: "Kademeler",
       secret_header: "Gizli başarılar",
       secret_body:
-        "Sırlar, tetikleyicilerini saklı tutar. Hermes ilgili bir sinyal gördüğünde kart Keşfedildi durumuna geçer ve gereksinimini gösterir.",
+        "Sırlar, tetikleyicilerini saklı tutar. Jade ilgili bir sinyal gördüğünde kart Keşfedildi durumuna geçer ve gereksinimini gösterir.",
       scan_status_header: "Tarama durumu",
       scan_status_body:
-        "Hermes yerel geçmişi bir kez tarıyor; sonra kartlar otomatik olarak görünür. Birkaç saniye sürmesi normaldir, hiçbir şey takılmadı.",
+        "Jade yerel geçmişi bir kez tarıyor; sonra kartlar otomatik olarak görünür. Birkaç saniye sürmesi normaldir, hiçbir şey takılmadı.",
       what_scanned_header: "Neler taranır",
       what_scanned_body:
         "Oturumlar, araç çağrıları, model meta verileri, hatalar, başarılar ve yerel açılma durumu.",
@@ -530,7 +530,7 @@ export const tr: Translations = {
         "X'te paylaş, yeni sekmede önceden doldurulmuş bir gönderi açar. 1200×630 rozetin eklenmesini istiyorsan önce Görseli kopyala'ya tıkla — X, görseli doğrudan tweet düzenleyiciye yapıştırmana izin verir. PNG indir, dosyayı her yerde kullanmak üzere kaydeder.",
       clipboard_unsupported:
         "Bu tarayıcıda panoya görsel kopyalama desteklenmiyor — bunun yerine İndir'i kullanın.",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in Jade ☤",
     },
   },
   kanban: {

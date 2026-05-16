@@ -72,7 +72,7 @@ When: A better approach found, a useful tool discovered,
 an undocumented behavior identified.
 TTL: 72 hours default (can be extended for important finds)
 Who reads: Relevant department and Jade
-Example: "Hermes Kanban has zombie detection built into
+Example: "Jade Kanban has zombie detection built into
 v0.12.0. Eliminates need to build our own.
 Details: /discoveries/2026-05-11-kanban.md"
 
@@ -83,7 +83,7 @@ or unexpected system behavior.
 TTL: null (permanent — failures prevent repetition)
 Who reads: Atlas (for institutional memory), relevant agent
 Example: "XovaDev attempted to modify run_agent.py directly.
-This broke the Hermes install. Fix: revert to
+This broke the Jade install. Fix: revert to
 last git checkpoint. Never modify core files.
 Full incident: /experience/incidents.md INC-2026-001"
 

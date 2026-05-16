@@ -1,14 +1,14 @@
 ---
-title: "Hermes Atropos Environments — Build, test, and debug Hermes Agent RL environments for Atropos training"
-sidebar_label: "Hermes Atropos Environments"
-description: "Build, test, and debug Hermes Agent RL environments for Atropos training"
+title: "Jade Atropos Environments — Build, test, and debug Jade RL environments for Atropos training"
+sidebar_label: "Jade Atropos Environments"
+description: "Build, test, and debug Jade RL environments for Atropos training"
 ---
 
 {/* This page is auto-generated from the skill's SKILL.md by website/scripts/generate-skill-docs.py. Edit the source SKILL.md, not this page. */}
 
-# Hermes Atropos Environments
+# Jade Atropos Environments
 
-Build, test, and debug Hermes Agent RL environments for Atropos training. Covers the HermesAgentBaseEnv interface, reward functions, agent loop integration, evaluation with tools, wandb logging, and the three CLI modes (serve/process/evaluate). Use when creating, reviewing, or fixing RL environments in the hermes-agent repo.
+Build, test, and debug Jade RL environments for Atropos training. Covers the JadeAgentBaseEnv interface, reward functions, agent loop integration, evaluation with tools, wandb logging, and the three CLI modes (serve/process/evaluate). Use when creating, reviewing, or fixing RL environments in the hermes-agent repo.
 
 ## Skill metadata
 
@@ -17,7 +17,7 @@ Build, test, and debug Hermes Agent RL environments for Atropos training. Covers
 | Source | Optional — install with `hermes skills install official/mlops/hermes-atropos-environments` |
 | Path | `optional-skills/mlops/hermes-atropos-environments` |
 | Version | `1.1.0` |
-| Author | Hermes Agent |
+| Author | Jade |
 | License | MIT |
 | Platforms | linux, macos, windows |
 | Tags | `atropos`, `rl`, `environments`, `training`, `reinforcement-learning`, `reward-functions` |
@@ -26,10 +26,10 @@ Build, test, and debug Hermes Agent RL environments for Atropos training. Covers
 ## Reference: full SKILL.md
 
 :::info
-The following is the complete skill definition that Hermes loads when this skill is triggered. This is what the agent sees as instructions when the skill is active.
+The following is the complete skill definition that Jade loads when this skill is triggered. This is what the agent sees as instructions when the skill is active.
 :::
 
-# Hermes Agent Atropos Environments
+# Jade Atropos Environments
 
 Guide for building RL environments in the hermes-agent repo that integrate with the Atropos training framework.
 
@@ -38,7 +38,7 @@ Guide for building RL environments in the hermes-agent repo that integrate with 
 <!-- ascii-guard-ignore -->
 ```
 Atropos BaseEnv (atroposlib/envs/base.py)
-    └── HermesAgentBaseEnv (environments/hermes_base_env.py)
+    └── JadeAgentBaseEnv (environments/hermes_base_env.py)
             ├── Handles agent loop orchestration
             ├── Handles tool resolution per group
             ├── Handles ToolContext for reward verification
@@ -48,14 +48,14 @@ Atropos BaseEnv (atroposlib/envs/base.py)
 ```
 <!-- ascii-guard-ignore-end -->
 
-Hermes environments are special because they run a **multi-turn agent loop with tool calling** — not just single-turn completions. The base env handles the loop; you implement the task and scoring.
+Jade environments are special because they run a **multi-turn agent loop with tool calling** — not just single-turn completions. The base env handles the loop; you implement the task and scoring.
 
 ## File Locations
 
 | File | Purpose |
 |------|---------|
 | `environments/hermes_base_env.py` | Base class with agent loop + tool resolution |
-| `environments/agent_loop.py` | `HermesAgentLoop` + `AgentResult` dataclass |
+| `environments/agent_loop.py` | `JadeAgentLoop` + `AgentResult` dataclass |
 | `environments/tool_context.py` | `ToolContext` for reward verification |
 | `environments/tool_call_parsers.py` | Phase 2 tool call parsers (hermes, mistral, etc.) |
 | `environments/your_env.py` | Your environment implementation |
@@ -172,7 +172,7 @@ The whole point of hermes-agent environments is agentic evaluation:
 ```python
 async def evaluate(self, *args, **kwargs) -> None:
     import time, uuid
-    from environments.agent_loop import HermesAgentLoop
+    from environments.agent_loop import JadeAgentLoop
     from environments.tool_context import ToolContext
 
     start_time = time.time()
@@ -186,7 +186,7 @@ async def evaluate(self, *args, **kwargs) -> None:
             messages.append({"role": "system", "content": self.config.system_prompt})
         messages.append({"role": "user", "content": self.format_prompt(item)})
 
-        agent = HermesAgentLoop(
+        agent = JadeAgentLoop(
             server=self.server,
             tool_schemas=tools,
             valid_tool_names=valid_names,
@@ -263,7 +263,7 @@ Config priority: CLI args > YAML file > config_init() defaults.
 
 1. **AgentResult has .messages, not .final_response** — Extract the final response by iterating reversed(result.messages) looking for the last assistant message with content.
 
-2. **evaluate() must use HermesAgentLoop, not chat_completion** — Single-turn chat_completion has no tools. The whole point of hermes-agent benchmarks is agentic evaluation with tool use.
+2. **evaluate() must use JadeAgentLoop, not chat_completion** — Single-turn chat_completion has no tools. The whole point of hermes-agent benchmarks is agentic evaluation with tool use.
 
 3. **Don't call _llm_judge twice** — If compute_reward already calls it, extract the score from the buffer instead of calling judge separately in evaluate().
 
@@ -305,7 +305,7 @@ Weight correctness (0.6) + tool usage (0.2) + efficiency (0.2) + optional bonuse
 ## Minimum Implementation Checklist
 
 ```python
-class MyEnv(HermesAgentBaseEnv):
+class MyEnv(JadeAgentBaseEnv):
     name = "my-env"
     env_config_cls = MyEnvConfig
 

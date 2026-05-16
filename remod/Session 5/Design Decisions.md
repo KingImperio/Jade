@@ -2,7 +2,7 @@
 
 ## Overview
 
-Created a `jade-identity` plugin for the Hermes Agent framework that loads
+Created a `jade-identity` plugin for the Jade framework that loads
 Jade's organizational configuration and makes it available via slash commands
 and the skill system.
 

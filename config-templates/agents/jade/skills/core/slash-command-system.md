@@ -193,7 +193,7 @@ Examples:
 ## Extensibility
 
 New slash commands can be added by writing a plugin that
-registers command handlers using the Hermes plugin hook system.
+registers command handlers using the Jade plugin hook system.
 Each new command must be documented in this skill file.
 Custom commands created by Fola or derived from usage patterns
 should be added here by Jade after Atlas validates them.

@@ -1,7 +1,7 @@
 # Jade (Oracule Zero) Repository Structure Map
 
 > Generated: 2026-05-15
-> Base: Fork of NousResearch Hermes Agent, customized for Oracule Zero multi-agent organization.
+> Base: Fork of NousResearch Jade, customized for Oracule Zero multi-agent organization.
 
 ---
 
@@ -12,7 +12,7 @@
 | Path | Importance | Description |
 |------|------------|-------------|
 | `run_agent.py` | **Critical** | The AIAgent class and core conversation loop (~16k LOC). Drives the main AI agent with tool calling, conversation management, error recovery, and multi-provider support. The heart of the system. |
-| `cli.py` | **Critical** | HermesCLI class providing the interactive terminal REPL (~13.7k LOC). Handles Rich/prompt_toolkit UI, animated spinners, skin engine, slash command dispatch, toolset selection, and session management. |
+| `cli.py` | **Critical** | JadeCLI class providing the interactive terminal REPL (~13.7k LOC). Handles Rich/prompt_toolkit UI, animated spinners, skin engine, slash command dispatch, toolset selection, and session management. |
 | `model_tools.py` | **Critical** | Thin orchestration layer over the tool registry. Exposes `get_tool_definitions()` and `handle_function_call()` — the public API consumed by run_agent, cli, batch_runner, and RL environments. |
 | `toolsets.py` | **Critical** | Defines all toolsets and the `_HERMES_CORE_TOOLS` list. Maps tools to named toolsets, supports composition, and is the default bundle every platform inherits from. |
 | `hermes_state.py` | **Critical** | SessionDB — SQLite store with FTS5 full-text search. Stores session metadata, full message history, and model config for both CLI and gateway sessions. Uses WAL mode with NFS fallback. |
@@ -24,7 +24,7 @@
 | `utils.py` | **Medium** | General utility functions used across the codebase. Shared helpers for path manipulation, string formatting, and common operations. |
 | `hermes_time.py` | **Medium** | Time utilities for the agent. Provides timezone-aware timestamps and duration formatting. |
 | `toolset_distributions.py` | **Medium** | Toolset distribution sampling for batch runs and RL training. Enables probabilistic toolset selection for training diversity. |
-| `mcp_serve.py` | **Medium** | MCP (Model Context Protocol) server entry point. Exposes Hermes tools to external MCP-compatible clients. |
+| `mcp_serve.py` | **Medium** | MCP (Model Context Protocol) server entry point. Exposes Jade tools to external MCP-compatible clients. |
 | `rl_cli.py` | **Medium** | CLI for reinforcement learning training environments. Wraps the agent loop for RL fine-tuning workflows. |
 | `mini_swe_runner.py` | **Medium** | Mini SWE (Software Engineering) agent runner for benchmark evaluation. Runs the agent against SWE-bench style tasks. |
 
@@ -60,8 +60,8 @@
 |------|------------|-------------|
 | `hermes` | **High** | Main CLI entry point script. The executable invoked as `hermes <command>`. |
 | `Dockerfile` | **Medium** | Docker image definition. Multi-stage build for production deployment. |
-| `docker-compose.yml` | **Medium** | Docker Compose configuration. Orchestrates Hermes with supporting services (Browserless, Redis). |
-| `setup-hermes.sh` | **Medium** | POSIX installation script for the standard Hermes Agent variant. |
+| `docker-compose.yml` | **Medium** | Docker Compose configuration. Orchestrates Jade with supporting services (Browserless, Redis). |
+| `setup-hermes.sh` | **Medium** | POSIX installation script for the standard Jade variant. |
 | `setup-oracule.sh` | **Medium** | Installation script for the Oracule Zero variant. Configures Jade identity and Oracule-specific plugins. |
 
 ---
@@ -198,7 +198,7 @@
 | `agent/transports/codex_app_server.py` | **Medium** | Codex app server session management. |
 | `agent/transports/codex_app_server_session.py` | **Medium** | Codex app server session handling. |
 | `agent/transports/codex_event_projector.py` | **Medium** | Codex event projection. |
-| `agent/transports/hermes_tools_mcp_server.py` | **Medium** | Hermes tools exposed as MCP server. |
+| `agent/transports/hermes_tools_mcp_server.py` | **Medium** | Jade tools exposed as MCP server. |
 | `agent/transports/types.py` | **Medium** | Transport type definitions. |
 | `agent/transports/__init__.py` | **Low** | Package init. |
 
@@ -600,7 +600,7 @@
 | `environments/hermes_swe_env/` | **High** | SWE (Software Engineering) benchmark environment. Runs the agent against SWE-bench tasks. |
 | `environments/benchmarks/` | **High** | Benchmark configurations (tblite, terminalbench_2, yc_bench). |
 | `environments/tool_call_parsers/` | **High** | Model-specific tool call parsers (deepseek, qwen, llama, mistral, kimi, glm, longcat). |
-| `environments/hermes_base_env.py` | **Medium** | Base Hermes RL environment. |
+| `environments/hermes_base_env.py` | **Medium** | Base Jade RL environment. |
 | `environments/agent_loop.py` | **Medium** | Agent loop environment for RL training. |
 | `environments/agentic_opd_env.py` | **Medium** | Agentic OPD environment. |
 | `environments/web_research_env.py` | **Medium** | Web research RL environment. |
@@ -617,7 +617,7 @@
 |------|------------|-------------|
 | `skills/github/` | **High** | GitHub workflow skills. Auth, code review, issues, PR workflow, repo management, codebase inspection. |
 | `skills/mcp/` | **High** | MCP skills. Native MCP server configuration and usage. |
-| `skills/software-development/` | **High** | Dev skills. Debugging, TDD, code review, planning, subagent-driven-development, Hermes skill authoring. |
+| `skills/software-development/` | **High** | Dev skills. Debugging, TDD, code review, planning, subagent-driven-development, Jade skill authoring. |
 | `skills/creative/` | **Medium** | Creative skills (20 entries). ASCII art, manim video, p5js, pixel art, excalidraw, comfyui, etc. |
 | `skills/devops/` | **Medium** | DevOps skills. Kanban orchestrator, kanban worker, webhook subscriptions. |
 | `skills/email/` | **Medium** | Email skills. Himalaya CLI integration. |
@@ -628,7 +628,7 @@
 | `skills/research/` | **Medium** | Research skills. Arxiv, blogwatcher, LLM wiki, Polymarket, paper writing. |
 | `skills/smart-home/` | **Medium** | Smart home. OpenHue integration. |
 | `skills/apple/` | **Medium** | Apple ecosystem skills. Notes, reminders, FindMy, iMessage, macOS computer use. |
-| `skills/autonomous-ai-agents/` | **Medium** | Agent usage skills. Claude Code, Codex, OpenCode, Hermes Agent. |
+| `skills/autonomous-ai-agents/` | **Medium** | Agent usage skills. Claude Code, Codex, OpenCode, Jade. |
 | `skills/data-science/` | **Medium** | Data science. Jupyter live kernel. |
 | `skills/inference-sh/` | **Low** | Inference shell skills. |
 | `skills/diagramming/` | **Low** | Diagramming skill descriptions. |
@@ -719,7 +719,7 @@ Heavier or niche skills NOT active by default. Installed explicitly via `hermes 
 | `ui-tui/src/protocol/` | **Medium** | Protocol definitions. |
 | `ui-tui/src/app/` | **Medium** | App-level modules. |
 | `ui-tui/src/__tests__/` | **Medium** | Unit tests. |
-| `ui-tui/packages/hermes-ink/` | **Medium** | Hermes Ink package. |
+| `ui-tui/packages/hermes-ink/` | **Medium** | Jade Ink package. |
 | `ui-tui/package.json` | **Medium** | npm package config. |
 | `ui-tui/vitest.config.ts` | **Low** | Vitest test config. |
 | `ui-tui/tsconfig.json` | **Low** | TypeScript config. |
@@ -781,7 +781,7 @@ Heavier or niche skills NOT active by default. Installed explicitly via `hermes 
 | `acp_adapter/server.py` | **High** | ACP protocol server. Implements the Agent Communication Protocol for IDE integration. |
 | `acp_adapter/__main__.py` | **Medium** | Entry point for the ACP server. |
 | `acp_adapter/session.py` | **Medium** | ACP session management. |
-| `acp_adapter/tools.py` | **Medium** | ACP tool exposure. Exposes Hermes tools to the IDE. |
+| `acp_adapter/tools.py` | **Medium** | ACP tool exposure. Exposes Jade tools to the IDE. |
 | `acp_adapter/auth.py` | **Medium** | ACP authentication. |
 | `acp_adapter/permissions.py` | **Medium** | Permission management. |
 | `acp_adapter/events.py` | **Medium** | Event handling. |

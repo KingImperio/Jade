@@ -1,12 +1,12 @@
 ---
 sidebar_position: 5
 title: "Environments, Benchmarks & Data Generation"
-description: "Building RL training environments, running evaluation benchmarks, and generating SFT data with the Hermes-Agent Atropos integration"
+description: "Building RL training environments, running evaluation benchmarks, and generating SFT data with the Jade-Agent Atropos integration"
 ---
 
 # Environments, Benchmarks & Data Generation
 
-Hermes Agent includes a full environment framework that connects its tool-calling capabilities to the [Atropos](https://github.com/NousResearch/atropos) RL training framework. This enables three workflows:
+Jade includes a full environment framework that connects its tool-calling capabilities to the [Atropos](https://github.com/NousResearch/atropos) RL training framework. This enables three workflows:
 
 1. **RL Training** — Train language models on multi-turn agentic tasks with GRPO
 2. **Benchmarks** — Evaluate models on standardised agentic benchmarks
@@ -15,7 +15,7 @@ Hermes Agent includes a full environment framework that connects its tool-callin
 All three share the same core: an **environment** class that defines tasks, runs an agent loop, and scores the output.
 
 :::info Repo environments vs RL training tools
-The Python environment framework documented here lives under the repo's `environments/` directory and is the implementation-level API for Hermes/Atropos integration. This is separate from the user-facing `rl_*` tools, which operate as an orchestration surface for remote RL training workflows.
+The Python environment framework documented here lives under the repo's `environments/` directory and is the implementation-level API for Jade/Atropos integration. This is separate from the user-facing `rl_*` tools, which operate as an orchestration surface for remote RL training workflows.
 :::
 
 :::tip Quick Links
@@ -37,7 +37,7 @@ classDiagram
       CLI: serve / process / evaluate
     }
 
-    class HermesAgentBaseEnv {
+    class JadeAgentBaseEnv {
       Terminal backend configuration
       Tool resolution
       Agent loop engine
@@ -48,7 +48,7 @@ classDiagram
       Stack testing
     }
 
-    class HermesSweEnv {
+    class JadeSweEnv {
       SWE training
     }
 
@@ -64,10 +64,10 @@ classDiagram
       Long-horizon benchmark
     }
 
-    BaseEnv <|-- HermesAgentBaseEnv
-    HermesAgentBaseEnv <|-- TerminalTestEnv
-    HermesAgentBaseEnv <|-- HermesSweEnv
-    HermesAgentBaseEnv <|-- TerminalBench2EvalEnv
+    BaseEnv <|-- JadeAgentBaseEnv
+    JadeAgentBaseEnv <|-- TerminalTestEnv
+    JadeAgentBaseEnv <|-- JadeSweEnv
+    JadeAgentBaseEnv <|-- TerminalBench2EvalEnv
     TerminalBench2EvalEnv <|-- TBLiteEvalEnv
     TerminalBench2EvalEnv <|-- YCBenchEvalEnv
 ```
@@ -81,18 +81,18 @@ The foundation from `atroposlib`. Provides:
 - **CLI interface** — three subcommands: `serve`, `process`, `evaluate`
 - **Eval logging** — `evaluate_log()` saves results to JSON + JSONL
 
-### HermesAgentBaseEnv
+### JadeAgentBaseEnv
 
 The hermes-agent layer (`environments/hermes_base_env.py`). Adds:
 - **Terminal backend configuration** — sets `TERMINAL_ENV` for sandboxed execution (local, Docker, Modal, Daytona, SSH, Singularity)
 - **Tool resolution** — `_resolve_tools_for_group()` calls hermes-agent's `get_tool_definitions()` to get the right tool schemas based on enabled/disabled toolsets
-- **Agent loop integration** — `collect_trajectory()` runs `HermesAgentLoop` and scores the result
+- **Agent loop integration** — `collect_trajectory()` runs `JadeAgentLoop` and scores the result
 - **Two-phase operation** — Phase 1 (OpenAI server) for eval/SFT, Phase 2 (VLLM ManagedServer) for full RL with logprobs
 - **Async safety patches** — monkey-patches Modal backend to work inside Atropos's event loop
 
 ### Concrete Environments
 
-Your environment inherits from `HermesAgentBaseEnv` and implements five methods:
+Your environment inherits from `JadeAgentBaseEnv` and implements five methods:
 
 | Method | Purpose |
 |--------|---------|
@@ -106,7 +106,7 @@ Your environment inherits from `HermesAgentBaseEnv` and implements five methods:
 
 ### Agent Loop
 
-`HermesAgentLoop` (`environments/agent_loop.py`) is the reusable multi-turn agent engine. It runs the same tool-calling pattern as hermes-agent's main loop:
+`JadeAgentLoop` (`environments/agent_loop.py`) is the reusable multi-turn agent engine. It runs the same tool-calling pattern as hermes-agent's main loop:
 
 1. Send messages + tool schemas to the API via `server.chat_completion()`
 2. If the response contains `tool_calls`, dispatch each via `handle_function_call()`
@@ -273,7 +273,7 @@ python environments/terminal_test_env/terminal_test_env.py process \
 python environments/terminal_test_env/terminal_test_env.py serve
 ```
 
-### HermesSweEnv
+### JadeSweEnv
 
 SWE-bench style training environment. The model gets a coding task, uses terminal + file + web tools to solve it, and the reward function runs tests in the same Modal sandbox.
 
@@ -349,13 +349,13 @@ Uses ManagedServer for exact token IDs + logprobs via `/generate`. A client-side
 ### Training Environment
 
 ```python
-from environments.hermes_base_env import HermesAgentBaseEnv, HermesAgentEnvConfig
+from environments.hermes_base_env import JadeAgentBaseEnv, JadeAgentEnvConfig
 from atroposlib.envs.server_handling.server_manager import APIServerConfig
 
-class MyEnvConfig(HermesAgentEnvConfig):
+class MyEnvConfig(JadeAgentEnvConfig):
     my_custom_field: str = "default_value"
 
-class MyEnv(HermesAgentBaseEnv):
+class MyEnv(JadeAgentBaseEnv):
     name = "my-env"
     env_config_cls = MyEnvConfig
 
@@ -416,7 +416,7 @@ See `environments/benchmarks/yc_bench/yc_bench_env.py` for a clean, well-documen
 
 ## Configuration Reference
 
-### HermesAgentEnvConfig Fields
+### JadeAgentEnvConfig Fields
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -448,7 +448,7 @@ env:
   terminal_backend: "modal"
   terminal_timeout: 300
   dataset_name: "NousResearch/terminal-bench-2"
-  tokenizer_name: "NousResearch/Hermes-3-Llama-3.1-8B"
+  tokenizer_name: "NousResearch/Jade-3-Llama-3.1-8B"
   use_wandb: true
   wandb_name: "my-benchmark"
 
@@ -497,13 +497,13 @@ See [RL Training](/user-guide/features/rl-training) for the agent-driven RL work
 
 ```
 environments/
-├── hermes_base_env.py          # Abstract base class (HermesAgentBaseEnv)
-├── agent_loop.py               # Multi-turn agent engine (HermesAgentLoop)
+├── hermes_base_env.py          # Abstract base class (JadeAgentBaseEnv)
+├── agent_loop.py               # Multi-turn agent engine (JadeAgentLoop)
 ├── tool_context.py             # Per-rollout tool access for reward functions
 ├── patches.py                  # Async-safety patches for Modal backend
 │
 ├── tool_call_parsers/          # Phase 2 client-side parsers
-│   ├── hermes_parser.py        # Hermes/ChatML <tool_call> format
+│   ├── hermes_parser.py        # Jade/ChatML <tool_call> format
 │   ├── mistral_parser.py       # Mistral [TOOL_CALLS] format
 │   ├── llama_parser.py         # Llama 3 JSON tool calling
 │   ├── qwen_parser.py          # Qwen format

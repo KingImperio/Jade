@@ -1,12 +1,12 @@
 ---
 sidebar_position: 1
 title: "Architecture"
-description: "Hermes Agent internals — major subsystems, execution paths, data flow, and where to read next"
+description: "Jade internals — major subsystems, execution paths, data flow, and where to read next"
 ---
 
 # Architecture
 
-This page is the top-level map of Hermes Agent internals. Use it to orient yourself in the codebase, then dive into subsystem-specific docs for implementation details.
+This page is the top-level map of Jade internals. Use it to orient yourself in the codebase, then dive into subsystem-specific docs for implementation details.
 
 ## System Overview
 
@@ -53,7 +53,7 @@ This page is the top-level map of Hermes Agent internals. Use it to orient yours
 ```text
 hermes-agent/
 ├── run_agent.py              # AIAgent — core conversation loop (large file)
-├── cli.py                    # HermesCLI — interactive terminal UI (large file)
+├── cli.py                    # JadeCLI — interactive terminal UI (large file)
 ├── model_tools.py            # Tool discovery, schema collection, dispatch
 ├── toolsets.py               # Tool groupings and platform presets
 ├── hermes_state.py           # SQLite session/state database with FTS5
@@ -139,7 +139,7 @@ hermes-agent/
 ### CLI Session
 
 ```text
-User input → HermesCLI.process_input()
+User input → JadeCLI.process_input()
   → AIAgent.run_conversation()
     → prompt_builder.build_system_prompt()
     → runtime_provider.resolve_runtime_provider()
@@ -243,7 +243,7 @@ First-class agent tasks (not shell tasks). Jobs store in JSON, support multiple 
 
 ### ACP Integration
 
-Exposes Hermes as an editor-native agent over stdio/JSON-RPC for VS Code, Zed, and JetBrains.
+Exposes Jade as an editor-native agent over stdio/JSON-RPC for VS Code, Zed, and JetBrains.
 
 → [ACP Internals](./acp-internals.md)
 

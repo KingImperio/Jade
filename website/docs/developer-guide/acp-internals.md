@@ -6,7 +6,7 @@ description: "How the ACP adapter works: lifecycle, sessions, event bridge, appr
 
 # ACP Internals
 
-The ACP adapter wraps Hermes' synchronous `AIAgent` in an async JSON-RPC stdio server.
+The ACP adapter wraps Jade' synchronous `AIAgent` in an async JSON-RPC stdio server.
 
 Key implementation files:
 
@@ -26,7 +26,7 @@ hermes acp / hermes-acp / python -m acp_adapter
   -> acp_adapter.entry.main()
   -> load ~/.hermes/.env
   -> configure stderr logging
-  -> construct HermesACPAgent
+  -> construct JadeACPAgent
   -> acp.run_agent(agent, use_unstable_protocol=True)
 ```
 
@@ -34,7 +34,7 @@ Stdout is reserved for ACP JSON-RPC transport. Human-readable logs go to stderr.
 
 ## Major components
 
-### `HermesACPAgent`
+### `JadeACPAgent`
 
 `acp_adapter/server.py` implements the ACP agent protocol.
 
@@ -91,15 +91,15 @@ asyncio.run_coroutine_threadsafe(...)
 
 Mapping:
 
-- `allow_once` -> Hermes `once`
-- `allow_always` -> Hermes `always`
-- reject options -> Hermes `deny`
+- `allow_once` -> Jade `once`
+- `allow_always` -> Jade `always`
+- reject options -> Jade `deny`
 
 Timeouts and bridge failures deny by default.
 
 ### Tool rendering helpers
 
-`acp_adapter/tools.py` maps Hermes tools to ACP tool kinds and builds editor-facing content.
+`acp_adapter/tools.py` maps Jade tools to ACP tool kinds and builds editor-facing content.
 
 Examples:
 
@@ -141,12 +141,12 @@ prompt(..., session_id)
 
 ACP does not implement its own auth store.
 
-Instead it reuses Hermes' runtime resolver:
+Instead it reuses Jade' runtime resolver:
 
 - `acp_adapter/auth.py`
 - `hermes_cli/runtime_provider.py`
 
-So ACP advertises and uses the currently configured Hermes provider/credentials.
+So ACP advertises and uses the currently configured Jade provider/credentials.
 
 ## Working directory binding
 

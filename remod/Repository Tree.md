@@ -3,7 +3,7 @@
 ```
 Jade/
 │   run_agent.py                    AIAgent class and core conversation loop (~16k LOC). The heart of the agent.
-│   cli.py                          HermesCLI class and interactive terminal REPL (~13.7k LOC). Rich/prompt_toolkit UI.
+│   cli.py                          JadeCLI class and interactive terminal REPL (~13.7k LOC). Rich/prompt_toolkit UI.
 │   model_tools.py                  Tool orchestration layer. Exposes get_tool_definitions() and handle_function_call().
 │   toolsets.py                     Defines all toolsets and _HERMES_CORE_TOOLS list. Default bundle for all platforms.
 │   hermes_state.py                 SessionDB — SQLite store with FTS5 full-text search for sessions and messages.
@@ -15,14 +15,14 @@ Jade/
 │   utils.py                        General utility functions for paths, strings, and common operations.
 │   hermes_time.py                  Timezone-aware timestamps and duration formatting.
 │   toolset_distributions.py        Toolset distribution sampling for batch runs and RL training.
-│   mcp_serve.py                    MCP server entry point. Exposes Hermes tools to external clients.
+│   mcp_serve.py                    MCP server entry point. Exposes Jade tools to external clients.
 │   rl_cli.py                       CLI for reinforcement learning training environments.
 │   mini_swe_runner.py              Mini SWE agent runner for SWE-bench evaluation.
 │   hermes                          Main CLI entry point script.
-│   setup-hermes.sh                 POSIX installation script for standard Hermes.
+│   setup-hermes.sh                 POSIX installation script for standard Jade.
 │   setup-oracule.sh                Installation script for Oracule Zero variant with Jade identity.
 │   Dockerfile                      Multi-stage Docker build for production deployment.
-│   docker-compose.yml              Orchestrates Hermes with Browserless and Redis.
+│   docker-compose.yml              Orchestrates Jade with Browserless and Redis.
 │   pyproject.toml                  Python package definition, dependencies, and entry points.
 │   AGENTS.md                       Development guide for AI assistants. Architecture, standards, and policies.
 │   README.md                       Main project readme with overview and quick start.
