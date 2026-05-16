@@ -855,7 +855,7 @@ def test_refresh_token_reuse_detection_surfaces_actionable_message():
     assert "refresh-token reuse" in message.lower() or "refresh token reuse" in message.lower()
     # The message must mention the external-process cause and give next steps.
     assert "external process" in message.lower() or "monitoring script" in message.lower()
-    assert "hermes auth add nous" in message.lower()
+    assert "jade auth add nous" in message.lower()
     # Must still be classified as invalid_grant + relogin_required.
     assert exc_info.value.code == "invalid_grant"
     assert exc_info.value.relogin_required is True
@@ -1151,7 +1151,7 @@ def test_try_import_shared_rehydrates_on_success(shared_store_env, monkeypatch):
     assert result["agent_key"] == "new-agent-key"
     # Preserved from shared state
     assert result["portal_base_url"] == "https://portal.example.com"
-    assert result["client_id"] == "hermes-cli"
+    assert result["client_id"] == "jade-cli"
 
 
 def test_shared_store_survives_across_profile_switch(

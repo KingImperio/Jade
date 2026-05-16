@@ -66,7 +66,7 @@ AUTH_LOCK_TIMEOUT_SECONDS = 15.0
 # Nous Portal defaults
 DEFAULT_NOUS_PORTAL_URL = "https://portal.nousresearch.com"
 DEFAULT_NOUS_INFERENCE_URL = "https://inference-api.nousresearch.com/v1"
-DEFAULT_NOUS_CLIENT_ID = "hermes-cli"
+DEFAULT_NOUS_CLIENT_ID = "jade-cli"
 DEFAULT_NOUS_SCOPE = "inference:mint_agent_key"
 DEFAULT_AGENT_KEY_MIN_TTL_SECONDS = 30 * 60  # 30 minutes
 ACCESS_TOKEN_REFRESH_SKEW_SECONDS = 120       # refresh 2 min before expiry
@@ -2674,7 +2674,7 @@ def resolve_codex_runtime_credentials(
         "provider": "openai-codex",
         "base_url": base_url,
         "api_key": access_token,
-        "source": "hermes-auth-store",
+        "source": "jade-auth-store",
         "last_refresh": data.get("last_refresh"),
         "auth_mode": "chatgpt",
     }
@@ -3287,7 +3287,7 @@ def resolve_nous_access_token(
 
         if not state:
             raise AuthError(
-                "Hermes is not logged into Nous Portal.",
+                "Jade is not logged into Nous Portal.",
                 provider="nous",
                 relogin_required=True,
             )
@@ -3566,7 +3566,7 @@ def resolve_nous_runtime_credentials(
         state = _load_provider_state(auth_store, "nous")
 
         if not state:
-            raise AuthError("Hermes is not logged into Nous Portal.",
+            raise AuthError("Jade is not logged into Nous Portal.",
                             provider="nous", relogin_required=True)
 
         portal_base_url = (

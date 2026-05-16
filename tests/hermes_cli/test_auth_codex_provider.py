@@ -174,14 +174,14 @@ def test_codex_tokens_not_written_to_shared_file(tmp_path, monkeypatch):
     monkeypatch.setenv("HERMES_HOME", str(hermes_home))
     monkeypatch.setenv("CODEX_HOME", str(codex_home))
 
-    _save_codex_tokens({"access_token": "hermes-at", "refresh_token": "hermes-rt"})
+    _save_codex_tokens({"access_token": "jade-at", "refresh_token": "jade-rt"})
 
     # ~/.codex/auth.json should NOT exist — _save_codex_tokens only touches Hermes store
     assert not (codex_home / "auth.json").exists()
 
     # Hermes auth store should have the tokens
     data = _read_codex_tokens()
-    assert data["tokens"]["access_token"] == "hermes-at"
+    assert data["tokens"]["access_token"] == "jade-at"
 
 
 def test_resolve_returns_hermes_auth_store_source(tmp_path, monkeypatch):
@@ -190,7 +190,7 @@ def test_resolve_returns_hermes_auth_store_source(tmp_path, monkeypatch):
     monkeypatch.setenv("HERMES_HOME", str(hermes_home))
 
     creds = resolve_codex_runtime_credentials()
-    assert creds["source"] == "hermes-auth-store"
+    assert creds["source"] == "jade-auth-store"
     assert creds["provider"] == "openai-codex"
     assert creds["base_url"] == DEFAULT_CODEX_BASE_URL
 
