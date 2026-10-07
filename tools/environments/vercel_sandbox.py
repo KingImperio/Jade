@@ -168,13 +168,15 @@ class VercelSandboxEnvironment(BaseEnvironment):
     def __init__(self, runtime: str | None = None, cwd: str = DEFAULT_VERCEL_CWD, timeout: int = 60,
                  cpu: float = 1, memory: int = 5120, disk: int = _DEFAULT_CONTAINER_DISK_MB,
                  persistent_filesystem: bool = True, task_id: str = "default",
-                 image: str | None = None):
+                 image: str | None = None, probe_only: bool = False):
         super().__init__(cwd=cwd, timeout=timeout)
         if disk not in {0, _DEFAULT_CONTAINER_DISK_MB}:
             raise ValueError(
                 "Vercel Sandbox does not support configurable container_disk. "
                 "Use the default shared setting.")
-        self._persistent, self._task_id, self._requested_cwd = persistent_filesystem, task_id, cwd
+        self._probe_only = probe_only
+        self._persistent = persistent_filesystem and not probe_only
+        self._task_id, self._requested_cwd = task_id, cwd
         self._lock = threading.Lock()
         self._sandbox: Sandbox | None = None
         self._workspace_root = self._remote_home = DEFAULT_VERCEL_CWD
@@ -193,8 +195,9 @@ class VercelSandboxEnvironment(BaseEnvironment):
             "image": None if runtime else (image or DEFAULT_VERCEL_IMAGE),
             "resources": Resources(vcpus=vcpus, memory=memory_mb) if (vcpus, memory_mb) != (None, None) else None}
         self._attach_fresh_sandbox(cwd)
-        self._sync_manager.sync(force=True)
-        self.init_session()
+        if not self._probe_only:
+            self._sync_manager.sync(force=True)
+            self.init_session()
 
     def _require_sandbox(self) -> Sandbox:
         if self._sandbox is None:
@@ -230,13 +233,14 @@ class VercelSandboxEnvironment(BaseEnvironment):
         self._wait_for_running()
         cwd = self._require_sandbox().sandbox.cwd
         self._workspace_root = cwd if cwd.startswith("/") else DEFAULT_VERCEL_CWD
-        self._remote_home = self._detect_remote_home()
-        container_base = self._remote_hermes_dir()
-        self._sync_manager = FileSyncManager(
-            get_files_fn=lambda: iter_sync_files(container_base),
-            upload_fn=lambda host_path, remote_path: self._vercel_bulk_upload([(host_path, remote_path)]),
-            delete_fn=self._vercel_delete,
-            bulk_upload_fn=self._vercel_bulk_upload, bulk_download_fn=self._vercel_bulk_download)
+        self._remote_home = self._workspace_root if self._probe_only else self._detect_remote_home()
+        if not self._probe_only:
+            container_base = self._remote_hermes_dir()
+            self._sync_manager = FileSyncManager(
+                get_files_fn=lambda: iter_sync_files(container_base),
+                upload_fn=lambda host_path, remote_path: self._vercel_bulk_upload([(host_path, remote_path)]),
+                delete_fn=self._vercel_delete,
+                bulk_upload_fn=self._vercel_bulk_upload, bulk_download_fn=self._vercel_bulk_download)
         self.cwd = {"~": self._remote_home, "": self._workspace_root,
                     DEFAULT_VERCEL_CWD: self._workspace_root}.get(requested_cwd, requested_cwd)
 
@@ -344,7 +348,8 @@ class VercelSandboxEnvironment(BaseEnvironment):
 
     def _before_execute(self) -> None:
         with self._lock:
-            self._ensure_sandbox_ready()
+            if not self._probe_only:
+                self._ensure_sandbox_ready()
             if self._sync_manager is not None:
                 self._sync_manager.sync()
 
@@ -414,7 +419,8 @@ class VercelSandboxEnvironment(BaseEnvironment):
             self._sync_manager = None
         if sandbox is None:
             return
-        self._snapshot_sandbox(sandbox)
+        if not self._probe_only:
+            self._snapshot_sandbox(sandbox)
         # Always stop the sandbox during cleanup to avoid resource leaks (matches Modal/Daytona).
         self._stop_sandbox(sandbox)
         self._close_sandbox_client(sandbox)
