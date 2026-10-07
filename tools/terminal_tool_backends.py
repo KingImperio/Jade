@@ -188,11 +188,13 @@ _SANDBOX_ROWS = {
 }
 
 
-def _build_sandbox_env(env_type, *, image, cwd, timeout, cc, task_id, **_):
+def _build_sandbox_env(env_type, *, image, cwd, timeout, cc, task_id, probe_only=False, **_):
     cls, with_image, extra = _SANDBOX_ROWS[env_type]
     kwargs = dict(cwd=cwd, timeout=timeout, task_id=task_id, **_resources(cc),
                   **({"image": image} if with_image else {}))
     kwargs.update(extra(cc, kwargs))
+    if env_type == "vercel_sandbox":
+        kwargs["probe_only"] = probe_only
     return cls()(**kwargs)
 
 
@@ -241,7 +243,7 @@ def _create_environment(env_type: str, image: str, cwd: str, timeout: int,
                         host_cwd: Optional[str] = None, probe_only: bool = False):
     """Create an execution environment (instance with ``execute()``) for *env_type*. ``image`` is ignored
     for local/ssh/vercel; ``container_config`` carries the container_*/docker_* resource keys; ``host_cwd`` is
-    the host dir bound into Docker when cwd mounting is enabled. ``probe_only`` asks ssh for a throwaway
+    the host dir bound into Docker when cwd mounting is enabled. ``probe_only`` asks ssh/Vercel for a throwaway
     connection with no remote setup/sync (the prompt-time probe). Unknown types fall through to plugin backends."""
     builder = _ENV_BUILDERS.get(env_type)
     kwargs = dict(image=image, cwd=cwd, timeout=timeout, cc=container_config or {}, task_id=task_id,

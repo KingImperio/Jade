@@ -285,6 +285,31 @@ class TestStartup:
             make_env()
 
 
+    def test_probe_only_skips_state_sync_session_setup_and_snapshot(self, make_env, vercel_sdk, monkeypatch):
+        sandbox = _FakeSandbox(cwd="/workspace")
+        vercel_sdk.create_side_effects.append(sandbox)
+
+        init_calls = []
+        monkeypatch.setattr(
+            vercel_module.BaseEnvironment, "init_session",
+            lambda self: init_calls.append(self),
+        )
+
+        env = make_env(probe_only=True)
+
+        assert env._probe_only is True
+        assert env._persistent is False
+        assert env._sync_manager is None
+        assert env._remote_home == "/workspace"
+        assert init_calls == []
+        assert sandbox.write_files_calls == []
+
+        env.cleanup()
+
+        assert sandbox.snapshot_calls == []
+        assert len(sandbox.stop_calls) == 1
+        assert sandbox.closed == 1
+
 class TestFileSync:
     def test_initial_sync_uploads_managed_files_under_remote_home(
         self, make_env, vercel_sdk, monkeypatch, tmp_path
